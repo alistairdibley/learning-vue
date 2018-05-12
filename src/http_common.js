@@ -8,9 +8,15 @@ export const HTTP = axios.create({
 });
  
 export function getComments(commentid) {
-  return HTTP.get(`comments` + '/' + commentid)
+  if (commentid) {
+    return HTTP.get('photos/' + commentid)
+    .then(response => response)
+    .catch(rerror => rerror);
+  } else {
+  return HTTP.get('photos')
   .then(response => response)
-  .catch(rerror => rerror);
+  .catch(rer => rerror);
+  }
 }
 
 export function cube(x) {
