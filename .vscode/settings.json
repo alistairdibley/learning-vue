@@ -1,4 +1,4 @@
 {
     "python.linting.pylintEnabled": false,
-    "python.pythonPath": "/home/zorro/venv/blog3/bin/python"
+    "python.pythonPath": "/home/zorro/venv/blog/bin/python"
 }

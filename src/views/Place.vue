@@ -2,25 +2,25 @@
   <div class="place">
     <h1>This is the</h1>
     <!-- <ul v-if="posts && posts.length"> -->
-     <input type="text" name="search" v-model="search" v-on:keyup="getposts">
+     <input type="text" name="search" v-model="search" v-on:keyup="getblogs">
     <!-- <li v-for="post of posts" :key="post.id">
       <p>{{post.title}}</p>
       <p>{{post.body}}</p> -->
-    <li style="list-style-type:none" v-for="post of posts" :key="post.id">
-      <div v-if="!post.hide">
-         <p>{{post.title}} |||| {{post.url}}</p> 
+    <li style="list-style-type:none" v-for="blog of blogs" v-bind:key="blog.id">
+      <div v-if="!blog.hide">
+         <p>{{blog.title}} |||| {{blog.created}}</p> 
       </div>
     </li>
   </div>
 </template>
 
 <script>
-import {getComments} from '../http_common';
+import {getBlogs} from '../http_common';
 
 export default {
   data() {
     return {
-      posts: [],
+      blogs: [],
       filtered: [],
       errors: [],
       search: null,
@@ -28,28 +28,24 @@ export default {
   },
 
   async created() {
-        getComments()
+        getBlogs()
       .then((response) => { 
-        this.posts = response.data;
-        for (var key in this.posts ) {
-            this.posts[key].hide = false;
+        this.blogs = response.data;
+        for (var key in this.blogs ) {
+            this.blogs[key].hide = false;
         }
         })
       .catch((error) => {this.errors = error;})
   },
   methods: {
-    getposts: function () {
-      var filter = []
-      for (var key in this.posts ) {
-        if  (this.posts[key].title.includes(this.search)) {
-          this.posts[key].hide = false;
-          //  filter.push(this.posts[key])
+    getblogs: function () {
+      console.log(this.search)
+      for (var key in this.blogs ) {
+        if  (this.blogs[key].title.includes(this.search)) {
+          this.blogs[key].hide = false;
         } else {
-          this.posts[key].hide = true;
+          this.blogs[key].hide = true;
         }
-       
-      // console.log(filter);
-      // this.filtered = filter
       }
     }
   }

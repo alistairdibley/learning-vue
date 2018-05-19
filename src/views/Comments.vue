@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import {getComments, cube } from '../http_common';
+import {getbogs, cube } from '../http_common';
 
 export default {
   data() {
