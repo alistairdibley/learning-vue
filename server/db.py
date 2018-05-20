@@ -27,10 +27,12 @@ class DB:
 
     post_keys = ['id', 'title', 'body', 'created']
 
-    def __init__(self):
-        conn = sqlite3.connect(DB_NAME)
-        self.cursor = conn.cursor()
+    def __del__(self):
+        self.conn.commit()
     
+    def __init__(self):
+        self.conn = sqlite3.connect(DB_NAME)
+        self.cursor = self.conn.cursor()
     
     def get_all_blogs(self):
         for post in self.cursor.execute('SELECT id, title, body, date FROM posts'):
