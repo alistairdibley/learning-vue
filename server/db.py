@@ -37,6 +37,10 @@ class DB:
     def get_all_blogs(self):
         for post in self.cursor.execute('SELECT id, title, body, date FROM posts'):
             yield dict(zip(self.post_keys, post))
+    
+    def get_blog_id(self, b_id):
+        for post in self.cursor.execute('SELECT id, title, body, date FROM posts WHERE id = ?', (b_id, )):
+            yield dict(zip(self.post_keys, post))
 
 
 if __name__ in '__main__':
