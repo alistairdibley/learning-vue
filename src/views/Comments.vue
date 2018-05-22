@@ -1,38 +1,42 @@
 <template>
   <div class="comment">
     <h1>This is the comments</h1>
-    <input type="text" name="commentId" v-model="commentId" v-on:keyup.enter="getcomments">
-      <p>{{comments.title}} </p>
-       <p>{{comments.url}} </p>
+    <input type="text" name="Id" v-model="Id" v-on:keyup.enter="getblog">
+      <p>{{blog.title}} </p>
+       <p>{{blog.body}} </p>
   <!-- {{errors}} -->
   </div>
 </template>
 <script>
-import {getbogs, cube } from '../http_common';
+// import {getbogs, cube } from '../http_common';
+import Vuex from "vuex";
 
 export default {
   data() {
     return {
       comments: [],
       errors: [],
-      commentId: 1
+      Id: 1,
+      blog: []
     }
   },
-   async created() {
-  //   // this.$router.push({ path: 'comment', query: { commentId: this.commentId }})
-
-    getComments(1)
-      .then((response) => { this.comments = response.data;})
-      .catch((error) => {this.errors = error;})
+   created() {
+    this.$store.dispatch('getBlogById', {Id: this.Id})
   },
-  methods: {
-    getcomments:  function () {
-      if (this.commentId) {
-        getComments(this.commentId) 
-        .then((response) => { this.comments = response.data;})
-        .catch((error) => {this.errors = error;})
-      }
-  }
+ methods: {
+   getblog: function() {
+     this.$store.dispatch('getBlogById', {Id: this.Id})
+    //  console.log(this.Id)
+    //  this.blog = this.blogs[this.Id-1]
+   }
+ },
+ computed: {
+    blogs() {
+        return this.$store.state.blogs
+    },
+    loading() {
+      return this.$store.state.loading
+    }
   }
 }
 </script>

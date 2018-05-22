@@ -27,7 +27,7 @@ export default {
   },
 
   created() {
-      this.$store.dispatch('loadData')
+      this.$store.dispatch('getAllBlogs')
   },
   methods: {
     getblogs: function () {

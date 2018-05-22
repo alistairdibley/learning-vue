@@ -18,7 +18,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    loadData({
+    getAllBlogs({
       commit
     }) {
       getBlogs().then((response) => {
@@ -26,6 +26,15 @@ export default new Vuex.Store({
         commit('updateBlogs', response.data)
         commit('changeLoadingState', false)
       })
-    }
+    },
+  getBlogById({
+    commit
+  }, id) {
+    console.log(id)
+    getBlogs(id.Id).then((response) => {
+      console.log(response.data, this)
+      commit('updateBlogs', response.data)
+    })
   },
+}
 });

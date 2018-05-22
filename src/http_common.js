@@ -9,7 +9,7 @@ export const HTTP = axios.create({
  
 export function getBlogs(commentid) {
   if (commentid) {
-    return HTTP.get('blogs/' + commentid)
+    return HTTP.get('blog',{params:{id:commentid}})
     .then(response => response)
     .catch(rerror => rerror);
   } else {
