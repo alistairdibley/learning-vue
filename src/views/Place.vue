@@ -4,12 +4,16 @@
     <div v-if="loading">
       loading....
     </div>
-     <input type="text" name="search" v-model="search" v-on:keyup="getblogs">
-    <li style="list-style-type:none" v-for="blog of blogs" v-bind:key="blog.id">
-      <div v-if="!blog.hide">
-         <p>{{blog.title}} |||| {{blog.created}}</p> 
-      </div>
-    </li>
+    <b-form-group horizontal label="Filter" class="mb-0">
+          <b-input-group>
+            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-input-group-append>
+              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+            </b-input-group-append>
+          </b-input-group>
+    </b-form-group>
+    <b-table striped hover :items="blogs" :filter="filter">
+    </b-table>
   </div>
 </template>
 
@@ -20,9 +24,7 @@ import Vuex from "vuex";
 export default {
   data() {
     return {
-      filtered: [],
-      errors: [],
-      search: null,
+      filter: null,
     }
   },
 

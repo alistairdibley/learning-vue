@@ -44,7 +44,7 @@ class DB:
 
 
 if __name__ in '__main__':
-    create()
+    #create()
     populate()
     for i in DB().get_all_blogs():
         print(i)
